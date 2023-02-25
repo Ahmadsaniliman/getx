@@ -6,7 +6,7 @@ class Counter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int _counter = 0;
+    var _counter = 0.obs;
     void increement() {
       _counter++;
     }
