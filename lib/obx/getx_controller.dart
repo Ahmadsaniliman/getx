@@ -11,6 +11,12 @@ class MyController extends GetxController {
   void icreementCounter() {
     student.name.value = student.name.value.toUpperCase();
   }
+
+  var counter = 0.obs;
+  void increeCounter() {
+    counter++;
+    update();
+  }
 }
 
 class GetxControllerPage extends StatelessWidget {
@@ -18,25 +24,37 @@ class GetxControllerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MyController myController = Get.put(
-      MyController(),
-    );
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
-      ),
-      body: Column(
-        children: [
-          Obx(
-            () => Text('Name is ${myController.student.name}'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              myController.icreementCounter();
-            },
-            child: const Text('upper'),
-          ),
-        ],
+    // MyController myController = Get.put(
+    //   MyController(),
+    // );
+    return GetMaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Home Page'),
+        ),
+        body: Column(
+          children: [
+            // Obx(
+            //   () => Text('Name is ${myController.student.name}'),
+            // ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     myController.icreementCounter();
+            //   },
+            //   child: const Text('upper'),
+            // ),
+            GetBuilder<MyController>(
+              init: MyController(),
+              builder: (controller) => Text('Value ${controller.counter}'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Get.find<MyController>().increeCounter();
+              },
+              child: const Text('Add'),
+            ),
+          ],
+        ),
       ),
     );
   }
